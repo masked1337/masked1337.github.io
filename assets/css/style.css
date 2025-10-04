@@ -1,0 +1,799 @@
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html {
+  scroll-behavior: smooth; /* lepi smooth scroll */
+}
+
+section {
+  scroll-margin-top: 80px; /* visina headera */
+}
+
+header p {
+  font-size: 3em;       /* veličina teksta */
+  color: black;         /* crna boja */
+  font-weight: bold;
+  text-align: center;
+  animation: pulse 2s infinite; /* ako želiš animaciju */
+}
+
+@keyframes pulse {
+  0% { opacity: 0.5; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(5px); }
+  100% { opacity: 0.5; transform: translateY(0); }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Kode Mono', monospace;
+    line-height: inherit;
+    vertical-align: inherit;
+    text-decoration: none;
+    border: 0;
+    outline: 0;
+}
+
+h1,h2,h3,h4,h5,h6 { font-weight: normal; }
+ul { list-style: none; }
+
+:root {
+    --main_color: #000000;
+    --text_color: #fefefe;
+    --background-image: url('https://i.imgur.com/SDFDLQo.jpeg'); /* tvoja direktna slika */
+    --overlay-color: rgba(20, 1, 13, 0.38);
+}
+
+/* POZADINA + OVERLAY */
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    color: var(--text_color);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-color);
+    z-index: -1;
+}
+
+/* GENERIČKI FLEX HELPERS */
+.s-flex { display: flex; }
+.s-flex-right { justify-content: flex-end; }
+.s-flex-left { justify-content: flex-start; }
+.s-flex-center { justify-content: center; }
+.s-flex-between { justify-content: space-between; }
+.s-flex-evenly { justify-content: space-evenly; }
+.s-flex-column { flex-direction: column; }
+.s-flex-wrap { flex-wrap: wrap; }
+
+/* DIMENZIJE */
+.s-halfW { width: 50%; }
+.s-halfH { height: 50%; }
+.s-halfVW { width: 50vw; }
+.s-halfVH { height: 50vh; }
+.s-fullW { width: 100%; }
+.s-fullH { height: 100%; }
+.s-fullVW { width: 100vw; }
+.s-fullVH { height: 100dvh; }
+
+/* LINKOVI */
+a { color: inherit; }
+
+header nav {
+    display: flex;              /* koristi flex layout */
+    justify-content: center;    /* centrirano horizontalno */
+    align-items: flex-start;    /* pri vrhu */
+    position: fixed;
+    top: 20px;                  /* 20px od vrha ekrana */
+    left: 50%;                  /* centriranje u sredinu ekrana */
+    transform: translateX(-50%);
+    padding: 0;
+}
+
+
+
+header nav ul {
+    display: flex;          /* horizontalni layout */
+    flex-direction: row;    /* linkovi idu levo-desno */
+    gap: 20px;              /* razmak između linkova */
+    list-style: none;       /* ukloni bullet points */
+    margin: 0;
+    padding: 0;
+}
+
+/* NAVIGACIJA - dugmad sa overlay efektom */
+header nav ul li a {
+    position: relative;
+    padding: 10px 25px;
+    border: 2px solid rgba(0,0,0,0.6); /* linije */
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.2); /* transparentna crna pozadina */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+header nav ul li a::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5); /* overlay */
+    z-index: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+header nav ul li a:hover::before {
+    transform: scaleX(1);
+}
+
+header nav ul li a span {
+    position: relative;
+    z-index: 1; /* tekst iznad overlay */
+    color: #fff; /* bela boja teksta */
+}
+
+
+/* SECTION */
+section {
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+section strong,
+section h2 { 
+    color: var(--main_color); 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    margin-bottom: 10px; 
+    font-size: 16px; 
+    font-weight: 800; 
+}
+
+#home h1 { 
+    font-size: 80px; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    color: var(--text_color);
+}
+
+section p { font-size: 16px; margin-top: 10px; color: var(--text_color); }
+section p.quote { display: flex; flex-direction: column; align-items: center; }
+section p.quote span { color: #798091; font-size: 13px; margin-top: 4px; font-weight: 600; }
+
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* razmak između logo-a, imena i linkova */
+    padding: 30px 50px;
+    border-radius: 15px;
+
+    background: rgba(0,0,0,0.25); /* blur overlay */
+    backdrop-filter: blur(10px);
+}
+
+.center-content .logo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.center-content h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+}
+
+.center-content .nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.center-content .nav-links a {
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    background: rgba(138,43,226,0.3); /* svetlo purple */
+    transition: all 0.3s ease;
+}
+
+.center-content .nav-links a:hover {
+    background: rgba(138,43,226,0.6);
+    transform: scale(1.05);
+}
+
+.social-box {
+    display: flex;
+    justify-content: center;
+    padding: 15px 40px;
+    border-radius: 15px;
+
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(10px);
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px; /* razmak između boxova */
+  width: 100%;
+}
+
+/* Svi boxovi imaju isti stil kao projekti */
+.home-card {
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 40px 60px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(155, 89, 255, 0.8),
+              0 0 50px rgba(155, 89, 255, 0.5) inset;
+}
+
+/* Logo + Ime */
+.home-card .logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.home-card h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+
+/* Social Card */
+.social-card ul.social-media {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+}
+
+.social-card ul.social-media li a i {
+  font-size: 32px;
+  color: #fff;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.social-card ul.social-media li a:hover i {
+  color: #9b59ff;
+  transform: scale(1.25);
+  text-shadow: 0 0 15px rgba(155, 89, 255, 0.9);
+}
+
+
+.social-box ul.social-media {
+    display: flex;
+    gap: 20px;
+}
+
+.social-box ul.social-media li a i {
+    font-size: 32px;
+    color: #fff;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.social-box ul.social-media li a:hover i {
+    color: #8a2be2; /* svetlo purple hover */
+    transform: scale(1.2);
+}
+
+
+.social-media i:hover { 
+    color: var(--main_color); /* samo promena boje ikone na hover */
+}
+
+/* Centriranje slike i teksta u home sekciji */
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* razmak između slike i imena */
+}
+
+.center-content .logo {
+    width: 150px;       /* širina slike */
+    height: 150px;      /* visina slike */
+    object-fit: cover;  /* slika popunjava prostor */
+}
+
+.center-content h1 {
+    color: var(--text_color);
+    font-size: 32px;    /* veličina imena ispod slike */
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+}
+
+/* Home tekst ispod imena */
+.center-content p {
+    color: var(--text_color);
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+
+.projects-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.project-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 20px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255,255,255,0.1);
+}
+
+.project-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.project-card h3 {
+  font-size: 20px;
+  margin: 15px 0 10px;
+  color: #fff;
+}
+
+.project-card p {
+  font-size: 14px;
+  color: #ccc;
+  padding: 0 10px;
+}
+
+
+.project-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 18px;
+  background: #e03231;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.project-btn:hover {
+  background: #c12727;
+}
+
+
+
+/* LISTE */
+.list { display: grid; gap: 14px; grid-template-columns: auto auto auto; }
+.list.projects { display: grid; gap: 8px; grid-template-columns: repeat(2, 1fr); width: 100%; align-items: flex-start; }
+
+/* PROJEKTI */
+li.project { display: flex; align-items: center; justify-content: space-between; flex-direction: column; background: #1c1f27; padding: 10px; border-radius: 5px; transition: 0.1s; }
+li.project:hover { background: #252a35; }
+li.project i { cursor: pointer; color: #5a6173; transition: 0.1s; }
+li.project i:hover { color: var(--text_color); }
+
+/* RESPONSIVE */
+@media screen and (max-width: 1200px) {
+    header nav { top: inherit; bottom: 0; right: 0; transform: none; padding: 0px; }
+    header nav ul { flex-direction: row; gap: 7px; display: grid; grid-template-columns: repeat(5, 1fr); width: 100%; }
+    section { height: calc(100dvh - 55px); }
+    section:last-child { height: 100dvh; }
+}
+
+@media screen and (max-width: 900px) {
+    .list { display: flex; flex-direction: column; width: 89%; }
+}
+
+@media screen and (max-width: 700px) {
+    #contact_form input, #contact_form textarea { width: calc(100% - 20px); }
+}
+
+@media screen and (max-width: 480px) {
+    .list.projects { width: 95%; }
+}
+
+@media screen and (max-width: 450px) {
+    #home h1 { font-size: 14vw; }
+    section p { width: 88%; }
+}
+
+/* Responzivnost za profilnu sliku i ime */
+@media screen and (max-width: 900px) {
+    .profile-container {
+        padding: 15px;
+    }
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+    }
+    .profile-container h1 {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+    }
+    .profile-container h1 {
+        font-size: 20px;
+    }
+}
+
+
+/* Centriranje slike i teksta u home sekciji */
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* razmak između slike i imena */
+
+    /* Uklonjeno sve: overlay i blur */
+    background: none;
+    backdrop-filter: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+
+.center-content .logo {
+    width: 150px;       /* širina kruga */
+    height: 150px;      /* visina kruga, mora biti ista kao širina */
+    border-radius: 50%; /* krug */
+    object-fit: cover;  /* slika popunjava krug */
+}
+
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998; /* ispod meteora, iznad sekcija */
+}
+
+/* FALLING STARS / METEORS */
+#stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.star {
+    position: absolute;
+    top: -10px;
+    width: 3px; /* malo veće */
+    height: 100px; /* malo duže */
+    background: linear-gradient(45deg, #cfa3ff, rgba(207,163,255,0)); /* svetlo purple */
+    opacity: 0.8;
+    transform: rotate(45deg);
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(45deg); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(100vh) translateX(50px) rotate(45deg); opacity: 0; }
+}
+
+/* PARTICLE EFFECT */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998; /* ispod meteora, iznad sekcija */
+}
+
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998; /* iznad sekcija, ispod eventualnih overlay-a */
+}
+
+/* Hover efekti za projekte */
+.project-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: scale(1.05); /* lagano povećanje */
+    box-shadow: 0 0 20px rgba(155, 89, 255, 0.7); /* ljubičasti glow */
+}
+
+/* Hover efekti za dugmad */
+.project-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: rgba(155, 89, 255, 0.8);
+    color: #fff;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.project-btn:hover {
+    background-color: rgba(207, 163, 255, 0.9);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(155, 89, 255, 0.8);
+}
+
+/* Hover efekat za Information box sa vidljivim ljubičastim glow */
+#information > div {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(20, 1, 13, 0.6); /* tamniji overlay da glow bolje dođe do izražaja */
+}
+
+#information > div:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(155, 89, 255, 0.8), 0 0 50px rgba(155, 89, 255, 0.5) inset; 
+    /* spoljašnji glow + blagi unutrašnji glow */
+}
+
+
+/* Glavni box u Home sekciji */
+.home-box {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* razmak između box-ova */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 60px;
+    border-radius: 15px;
+
+    /* blur overlay */
+    background: rgba(0,0,0,0.25); 
+    backdrop-filter: blur(10px);
+}
+
+.center-content .logo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.center-content h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+}
+
+/* Social media box */
+.social-box {
+    display: flex;
+    justify-content: center;
+    padding: 20px 50px;
+    border-radius: 15px;
+
+    /* isti blur kao ostali box-ovi */
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(10px);
+}
+
+.social-box ul.social-media {
+    display: flex;
+    gap: 20px;
+}
+
+.social-box ul.social-media li a i {
+    font-size: 32px;
+    color: #fff;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.social-box ul.social-media li a:hover i {
+    color: #8a2be2;
+    transform: scale(1.2);
+}
+
+
+
+.social-media li i:hover {
+    color: #9b59ff;
+    transform: scale(1.25);
+    text-shadow: 0 0 15px rgba(155,89,255,0.9);
+}
+
+.home-card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40px 30px;
+  border-radius: 15px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(155, 89, 255, 0.8),
+              0 0 50px rgba(155, 89, 255, 0.5) inset;
+}
+
+.home-card .logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.home-card h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.home-card p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.home-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.home-buttons .project-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgba(155, 89, 255, 0.8);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.home-buttons .project-btn:hover {
+  background-color: rgba(207, 163, 255, 0.9);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(155, 89, 255, 0.8);
+}
+
+.social-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.social-box ul.social-media {
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.social-box ul.social-media li a i {
+  font-size: 32px;
+  color: #fff;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.social-box ul.social-media li a:hover i {
+  color: #8a2be2;
+  transform: scale(1.2);
+}
+
+
+#copy-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 9999;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+#copy-toast.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
